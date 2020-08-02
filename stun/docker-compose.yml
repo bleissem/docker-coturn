@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  coturn:
+    network_mode: host
+    build:
+      network: host
+      dockerfile: ./Dockerfile
+      context: ./
+    env_file:
+      - .env
+    restart: always
+
