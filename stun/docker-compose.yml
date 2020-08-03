@@ -9,4 +9,10 @@ services:
     env_file:
       - .env
     restart: always
-
+    container_name: stun
+    ports: 
+    - '3478:3478'
+    - '3478:3478/udp'
+    - '5349:5349'
+    - '5349:5349/udp'
+    - '49152:49152/udp'
