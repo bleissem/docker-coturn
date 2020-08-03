@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   coturn:
+    container_name: stun
     network_mode: host
     build:
       network: host
@@ -9,10 +10,15 @@ services:
     env_file:
       - .env
     restart: always
-    container_name: stun
+    environment:
+      externalip: ${externalip}
+      user: ${user}
+      password: ${password}
+      realm: ${realm}
+    
     ports: 
-    - '3478:3478'
-    - '3478:3478/udp'
-    - '5349:5349'
-    - '5349:5349/udp'
-    - '49152:49152/udp'
+    - '${externalip:-0.0.0.0}:3478:3478'
+    - '${externalip:-0.0.0.0}:3478:3478/udp'
+    - '${externalip:-0.0.0.0}:5349:5349'
+    - '${externalip:-0.0.0.0}:5349:5349/udp'
+    - '${externalip:-0.0.0.0}:49152:49152/udp'
