@@ -1,13 +1,14 @@
 #!/bin/bash
+ls
 while [ ! -f /certs/cert.pem ]
 do
   echo 'wait for file cert.pem'
   sleep 5
 done
 
-while [ ! -f /certs/privkey.pem ]
+while [ ! -f /certs/key.pem ]
 do
-  echo 'wait for file privkey.pem'
+  echo 'wait for file key.pem'
   sleep 5  
 done
 
