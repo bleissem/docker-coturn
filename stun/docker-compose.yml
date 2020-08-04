@@ -2,6 +2,8 @@ version: '3.7'
 services:
   app:
     container_name: stun
+    depends_on:
+      - letsencrypt
     network_mode: host
     build:
       network: host
@@ -25,13 +27,9 @@ services:
     volumes:
       - ${CERTDIR}:/certs
       - ./logs:/logs
-  web:
+  letsencrypt:
     image: nginx:stable
     container_name: stun_nginx
-    links:
-      - app
-    volumes_from:
-      - app
     environment:
       - VIRTUAL_HOST=${HOST}
       - VIRTUAL_NETWORK=${NETWORK:-webproxy}
