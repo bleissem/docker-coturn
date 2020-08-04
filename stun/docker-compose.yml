@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  coturn:
+  app:
     container_name: stun
     network_mode: host
     build:
@@ -11,17 +11,38 @@ services:
       - .env
     restart: always
     environment:
-      externalip: ${externalip}
-      user: ${user}
-      password: ${password}
-      realm: ${realm}
+      externalip: ${EXTERNALIP}
+      user: ${USER}
+      password: ${PASSWORD}
+      realm: ${REALM}
     
     ports: 
-    - '${externalip:-0.0.0.0}:3478:3478'
-    - '${externalip:-0.0.0.0}:3478:3478/udp'
-    - '${externalip:-0.0.0.0}:5349:5349'
-    - '${externalip:-0.0.0.0}:5349:5349/udp'
-    - '${externalip:-0.0.0.0}:49152:49152/udp'
+    - '${EXTERNALIP:-0.0.0.0}:3478:3478'
+    - '${EXTERNALIP:-0.0.0.0}:3478:3478/udp'
+    - '${EXTERNALIP:-0.0.0.0}:5349:5349'
+    - '${EXTERNALIP:-0.0.0.0}:5349:5349/udp'
+    - '${EXTERNALIP:-0.0.0.0}:49152:49152/udp'
     volumes:
-      - ${certdir}:/certs
+      - ${CERTDIR}:/certs
       - ./logs:/logs
+  web:
+    image: nginx:stable
+    container_name: stun_nginx
+    links:
+      - app
+    volumes_from:
+      - app
+    environment:
+      - VIRTUAL_HOST=${HOST}
+      - VIRTUAL_NETWORK=${NETWORK:-webproxy}
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=${HOST}
+      - LETSENCRYPT_EMAIL=${EMAIL}
+    networks:
+      - proxy-tier
+    restart: always
+
+networks:
+  proxy-tier:
+    external:
+      name: ${NETWORK:-webproxy}
