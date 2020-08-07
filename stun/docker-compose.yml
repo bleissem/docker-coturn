@@ -18,6 +18,10 @@ services:
       password: ${PASSWORD}
       realm: ${REALM}
       whattostart: ${WHATTOSTART}
+      port: ${PORT}
+      tlslisteningport: ${TLSLISTENINGPORT}
+      minport: ${MINPORT}
+      maxport: ${MAXPORT}
     
     ports: 
     - '${EXTERNALIP:-0.0.0.0}:3478:3478'
