@@ -26,7 +26,7 @@ services:
     
     ports: 
     - '${EXTERNALIP:-0.0.0.0}:${PORT}:${PORT}'
-    - '${EXTERNALIP:-0.0.0.0:${PORT}:${PORT}/udp'
+    - '${EXTERNALIP:-0.0.0.0}:${PORT}:${PORT}/udp'
     - '${EXTERNALIP:-0.0.0.0}:${TLSLISTENINGPORT}:${TLSLISTENINGPORT}'
     - '${EXTERNALIP:-0.0.0.0}:${TLSLISTENINGPORT}:${TLSLISTENINGPORT}/udp'
     - '${EXTERNALIP:-0.0.0.0}:${MINPORT}-${MAXPORT}:${MINPORT}-${MAXPORT}/udp'
