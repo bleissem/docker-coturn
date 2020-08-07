@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   app:
-    container_name: stun
+    container_name: stunturn
     depends_on:
       - letsencrypt
     network_mode: host
@@ -9,6 +9,7 @@ services:
       network: host
       dockerfile: ./Dockerfile
       context: ./
+    image: stunturn
     env_file:
       - .env
     restart: always
@@ -34,7 +35,7 @@ services:
       - ./logs:/logs
   letsencrypt:
     image: nginx:stable
-    container_name: stun_nginx
+    container_name: stunturn_nginx
     environment:
       - VIRTUAL_HOST=${HOST}
       - VIRTUAL_NETWORK=${NETWORK:-webproxy}
