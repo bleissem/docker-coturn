@@ -25,11 +25,11 @@ services:
       maxport: ${MAXPORT}
     
     ports: 
-    - '${EXTERNALIP:-0.0.0.0}:3478:3478'
-    - '${EXTERNALIP:-0.0.0.0}:3478:3478/udp'
-    - '${EXTERNALIP:-0.0.0.0}:5349:5349'
-    - '${EXTERNALIP:-0.0.0.0}:5349:5349/udp'
-    - '${EXTERNALIP:-0.0.0.0}:49152:49152/udp'
+    - '${EXTERNALIP:-0.0.0.0}:${PORT}:${PORT}'
+    - '${EXTERNALIP:-0.0.0.0:${PORT}:${PORT}/udp'
+    - '${EXTERNALIP:-0.0.0.0}:${TLSLISTENINGPORT}:${TLSLISTENINGPORT}'
+    - '${EXTERNALIP:-0.0.0.0}:${TLSLISTENINGPORT}:${TLSLISTENINGPORT}/udp'
+    - '${EXTERNALIP:-0.0.0.0}:${MINPORT}-${MAXPORT}:${MINPORT}-${MAXPORT}/udp'
     volumes:
       - ${CERTDIR}:/certs
       - ./logs:/logs
